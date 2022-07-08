@@ -1,29 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
 import App from "./App";
 import "./index.scss";
+
 import reportWebVitals from "./reportWebVitals";
-
-const defaultState = {
-  cash: 0,
-};
-
-const reducer = (state = defaultState, action) => {
-  console.log(action.type);
-  switch (action.type) {
-    case "ADD_CASH":
-      return { ...state, cash: state.cash + action.payload };
-
-    case "GET_CASH":
-      return { ...state, cash: state.cash - action.payload };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(reducer);
+import { store } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -31,7 +13,7 @@ root.render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

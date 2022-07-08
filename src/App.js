@@ -1,22 +1,40 @@
-import { type } from "@testing-library/user-event/dist/type";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import "./App.scss";
+import { fetchUsers } from "./asyncActions/customers";
+import { decrementAction, incrementAction } from "./store/countReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-  const cash = useSelector((state) => state.cash);
-  const addCash = (cash) => {
-    dispatch({ type: "ADD_CASH", payload: cash });
-  };
-  const getCash = (cash) => {
-    dispatch({ type: "GET_CASH", payload: cash });
-  };
+  const count = useSelector((state) => state.countReducer.count);
+  const users = useSelector((state) => state.userReducer.users);
   return (
-    <div className="App">
-      <div>{cash}</div>
-      <button onClick={() => addCash(Number(prompt()))}>Add Cash</button>
-      <button onClick={() => getCash(Number(prompt()))}>Get Cash</button>
-    </div>
+    <>
+      <button
+        onClick={() => {
+          dispatch(incrementAction());
+        }}
+      >
+        ++
+      </button>
+      <button
+        onClick={() => {
+          dispatch(decrementAction());
+        }}
+      >
+        --
+      </button>
+      <button
+        onClick={() => {
+          dispatch(fetchUsers());
+        }}
+      >
+        Get users from DB
+      </button>
+      <div>{count}</div>
+      <div>{users}</div>
+    </>
   );
 };
 
